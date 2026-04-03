@@ -1,3 +1,5 @@
+
+  /*--- Using tRPC for Pre-fetching---
 "use client"
 
 import { useTRPC } from '@/trpc/client'
@@ -18,3 +20,4 @@ export const Client=()=> {
     </div>
   )
 };
+*/
