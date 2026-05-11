@@ -9,7 +9,8 @@ export const appRouter = createTRPCRouter({
    invoke:baseProcedure
    .input(
     z.object({
-      text:z.string(),
+      //  text:z.string(),
+          value:z.string(),      
     })
    )
    .mutation(async({input})=>{
@@ -19,10 +20,12 @@ export const appRouter = createTRPCRouter({
           data:{
   // check out functions.ts for return stmt having ${event.data.email}
   // check out the above given baseProcedure for datatype of email
-            email:input.text,   
+  // email:input.text,
+            // email:input.text,
+            value:input.value,   
           }
         })
-        return{ok:"success"}
+        return{ ok: "success" };
    }),
 
   createAI: baseProcedure
