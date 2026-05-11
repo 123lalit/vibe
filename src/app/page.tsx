@@ -16,13 +16,14 @@
 // import { getQueryClient,trpc } from '../trpc/server';
 // import { Client } from "./client";
 
+/*---Background Jobs---*/
 "use client"
-
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
-
 import { useTRPC } from "@/trpc/client"
 import { Button } from "@/components/ui/button";
+ import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 // <Page> is an async Client Component. Only Server Components can be async at the moment. 
 function Page() {
@@ -46,6 +47,10 @@ function Page() {
 // void queryClient.prefetchQuery(trpc.createAI.queryOptions({text:"Antonio PREFETCH"}));
 
 
+/*---Background Jobs---*/
+
+ const[value,setValue]=useState("");
+
 const trpc=useTRPC();
 
 // using Toaster inside layout.tsx
@@ -54,9 +59,6 @@ const invoke=useMutation(trpc.invoke.mutationOptions({
     toast.success("Background Job Started")
   }
 }));
-
-
-
   
 return (
 
@@ -68,14 +70,18 @@ return (
     //   </Suspense>
     // </HydrationBoundary>
 
+   // invoke.mutate({text:"John"})
 
     <div className="p-4 max-w-7xl mx-auto">
-      <Button disabled={invoke.isPending} onClick={()=> invoke.mutate({text:"John"})}>
+      
+       <Input value={value} onChange={(e) => setValue(e.target.value)} /> 
+      
+      <Button disabled={invoke.isPending} onClick={() => invoke.mutate({ value: value }) }>   
           Invoke Background Job
       </Button>
     </div>
-  )
-}
+  );
+};
 
 export default Page
 
